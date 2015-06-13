@@ -36,6 +36,8 @@ let s:diagnostic_ui_filetypes = {
       \ 'objcpp': 1,
       \ }
 
+let s:defer_set_omnifunc = 1
+
 
 function! youcompleteme#Enable()
   " When vim is in diff mode, don't run
@@ -377,6 +379,11 @@ function! s:OnBufferVisit()
 
   call s:SetUpCompleteopt()
   call s:SetCompleteFunc()
+
+  if !exists('s:defer_set_omnifunc')
+    call s:SetOmnicompleteFunc()
+  endif
+
   py ycm_state.OnBufferVisit()
   call s:OnFileReadyToParse()
 endfunction
@@ -508,7 +515,13 @@ function! s:OnInsertEnter()
     return
   endif
 
-  call s:SetOmnicompleteFunc()
+  if exists('s:defer_set_omnifunc')
+    call s:SetOmnicompleteFunc()
+
+    " After the first time we can avoid to defer the set up of the omnifunc
+    " since the ycmd server will be up and running already.
+    unlet s:defer_set_omnifunc
+  endif
 
   let s:old_cursor_position = []
 endfunction
