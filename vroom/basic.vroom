@@ -1,0 +1,24 @@
+Let's input something
+
+  % struct Foo {<cr>
+  %   int bar;<cr>
+  %   char qux;<cr>
+  % };<cr>
+  % <cr>
+  % int main()<cr>
+  % {<cr>
+  %   Foo foo;<cr>
+  %   foo.q<tab>;<cr>
+  % }
+
+We should have completed `qux`
+  struct Foo {
+    int bar;
+    char qux;
+  };
+  &
+  int main()
+  {
+    Foo foo;
+    foo.qux;
+  }

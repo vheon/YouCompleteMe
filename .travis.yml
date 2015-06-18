@@ -14,4 +14,6 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 install:
   - pip install -r python/test_requirements.txt
-script: ./run_tests.sh
+script:
+  # - ./run_tests.sh
+  - vroom --crawl ./vroom/
