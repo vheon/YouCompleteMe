@@ -41,3 +41,4 @@ for directory in "${SCRIPT_DIR}"/third_party/ycmd/third_party/*; do
 done
 
 nosetests -v "${SCRIPT_DIR}/python"
+rspec spec
