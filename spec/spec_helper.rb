@@ -15,3 +15,7 @@ Vimrunner::RSpec.configure do |config|
     vim
   end
 end
+
+def fixture(name)
+  File.join( File.expand_path( '../..', __FILE__ ), 'fixtures', name )
+end
