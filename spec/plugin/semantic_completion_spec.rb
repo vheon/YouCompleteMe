@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "semantic completion" do
   let(:filename) { 'test.cpp' }
 
-  it "we have a semantic engine" do
+  xit "we have a semantic engine" do
     write_file '.ycm_extra_conf.py', <<-EOF
       def FlagsForFile( filename ):
         return {
