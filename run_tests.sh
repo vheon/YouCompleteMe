@@ -40,5 +40,5 @@ for directory in "${SCRIPT_DIR}"/third_party/ycmd/third_party/*; do
   fi
 done
 
-nosetests -v "${SCRIPT_DIR}/python"
+# nosetests -v "${SCRIPT_DIR}/python"
 rspec spec
