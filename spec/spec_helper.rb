@@ -27,6 +27,7 @@ Vimrunner::RSpec.configure do |config|
     def vim.current_line
       echo "getline('.')"
     end
+
     def vim.buffer_content
       echo(%<join(getbufline('%', 1, '$'), "\n")>)
     end

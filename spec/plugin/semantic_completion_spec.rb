@@ -23,12 +23,16 @@ describe "semantic completion" do
       }
     EOF
     vim.search 'Foo foo;'
-    vim.normal 'A'
-    vim.type '<cr>'
+    vim.normal 'o'
 
+    # Trigger the semantic completion; we have to use feedkeys_input because we
+    # need a little delay between typed characters
     vim.feedkeys_input 'foo.h'
+    # Chose the candidate
     vim.feedkeys '\<Tab>'
+    # Continue typing the end of the line
     vim.feedkeys ';'
+
     expect(vim.current_line).to include("foo.character")
   end
 end
