@@ -33,10 +33,7 @@ describe "semantic completion" do
     # Continue typing the end of the line
     vim.feedkeys ';'
 
-
-    vim.normal
-    vim.write
-    assert_buffer_contents ""
+    expect(vim.buffer_content).to eq("")
     expect(vim.current_line).to include("foo.character")
   end
 end
