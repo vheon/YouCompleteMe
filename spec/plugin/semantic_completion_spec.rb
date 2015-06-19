@@ -4,6 +4,13 @@ describe "semantic completion" do
   let(:filename) { 'test.cpp' }
 
   it "we have a semantic engine" do
+    write_file '.ycm_extra_conf.py', <<-EOF
+      def FlagsForFile( filename ):
+        return {
+          'flags': ['-x', 'c++'],
+          'do_cache': True
+        }
+    EOF
     set_buffer_contents <<-EOF
       struct Foo {
         int integer;
@@ -16,23 +23,12 @@ describe "semantic completion" do
       }
     EOF
     vim.search 'Foo foo;'
-    vim.normal 'o'
-    vim.insert 'foo.'
-    vim.type '<c-n><c-n><c-n>'
-    vim.type ';'
-    vim.normal
-    vim.write
-    assert_buffer_contents <<-EOF
-      struct Foo {
-        int integer;
-        char character;
-      };
+    vim.normal 'A'
+    vim.type '<cr>'
 
-      int main()
-      {
-        Foo foo;
-        foo.character;
-      }
-    EOF
+    vim.feedkeys_input 'foo.h'
+    vim.feedkeys '\<Tab>'
+    vim.feedkeys ';'
+    expect(vim.current_line).to include("foo.character")
   end
 end

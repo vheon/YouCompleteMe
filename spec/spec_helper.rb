@@ -13,10 +13,22 @@ Vimrunner::RSpec.configure do |config|
     # already fired
     plugin_path = File.expand_path( '../..', __FILE__ )
     vim.add_plugin( PLUGIN_PATH, 'plugin/youcompleteme.vim' )
+    vim.command('let g:ycm_confirm_extra_conf = 0')
     vim.command( 'call youcompleteme#Enable()' )
 
     def vim.edit_fixture( name )
       edit( File.join( PLUGIN_PATH, 'spec', 'fixtures', name ) )
+    end
+
+    def vim.feedkeys_input( input )
+      input.chars.to_a.each { |c| feedkeys c; sleep 0.1 }
+    end
+
+    def vim.current_line
+      echo "getline('.')"
+    end
+    def vim.buffer_content
+      echo(%<join(getbufline('%', 1, '$'), "\n")>)
     end
 
     vim
