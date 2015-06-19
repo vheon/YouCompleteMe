@@ -23,7 +23,7 @@ describe "semantic completion" do
       }
     EOF
     vim.search 'Foo foo;'
-    vim.normal 'o'
+    vim.insert 'ciao come stai?'
 
     # Trigger the semantic completion; we have to use feedkeys_input because we
     # need a little delay between typed characters
