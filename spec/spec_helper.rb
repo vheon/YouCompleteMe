@@ -21,7 +21,7 @@ Vimrunner::RSpec.configure do |config|
     end
 
     def vim.feedkeys_input( input )
-      input.chars.to_a.each { |c| feedkeys c; sleep 0.25 }
+      input.chars.to_a.each { |c| feedkeys c; sleep 0.3 }
     end
 
     def vim.current_line
