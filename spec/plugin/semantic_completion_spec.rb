@@ -34,6 +34,8 @@ describe "semantic completion" do
     vim.feedkeys ';'
 
 
+    vim.normal
+    vim.write
     assert_buffer_contents ""
     expect(vim.current_line).to include("foo.character")
   end
