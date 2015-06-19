@@ -1,39 +1,28 @@
 require 'spec_helper'
 
 describe "semantic completion" do
-  let(:filename) { 'test.cpp' }
+  context "we have a semantic completion" do
+    specify "YCM uses the native completion when needed" do
+      set_buffer_contents 'test.py', <<-EOF
+      class Foo(object):
+        def __init__(self):
+          self.one = 1
+          self.two = 2
 
-  xit "we have a semantic engine" do
-    write_file '.ycm_extra_conf.py', <<-EOF
-      def FlagsForFile( filename ):
-        return {
-          'flags': ['-x', 'c++'],
-          'do_cache': True
-        }
-    EOF
-    set_buffer_contents <<-EOF
-      struct Foo {
-        int integer;
-        char character;
-      };
+      f = Foo()
+      EOF
+      vim.search 'Foo()'
+      vim.normal 'o'
 
-      int main()
-      {
-        Foo foo;
-      }
-    EOF
-    # vim.search 'Foo foo;'
-    vim.insert 'ciao come stai?'
+      # Trigger the semantic completion; we have to use feedkeys_input because we
+      # need a little delay between typed characters
+      vim.feedkeys_input 'f.w'
+      # Chose the candidate
+      vim.user_feedkeys '\<Tab>'
+      # Continue typing the end of the line
+      vim.feedkeys_input ' = 5'
 
-    # Trigger the semantic completion; we have to use feedkeys_input because we
-    # need a little delay between typed characters
-    # vim.feedkeys_input 'foo.h'
-    # Chose the candidate
-    # vim.feedkeys '\<Tab>'
-    # Continue typing the end of the line
-    # vim.feedkeys ';'
-
-    expect(vim.buffer_content).to eq("")
-    # expect(vim.current_line).to include("foo.character")
+      expect(vim.current_line).to include("f.two = 5")
+    end
   end
 end

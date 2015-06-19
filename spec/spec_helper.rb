@@ -20,13 +20,25 @@ Vimrunner::RSpec.configure do |config|
       edit( File.join( PLUGIN_PATH, 'spec', 'fixtures', name ) )
     end
 
-    def vim.feedkeys_input( input )
-      input.chars.to_a.each { |c| feedkeys c; sleep 0.3 }
+
+    def vim.user_feedkeys( c )
+      # we sleep before typing a character to simulate a user actually
+      # typing; this way we let vim process our input and behave similarly to
+      # when we actually use vim
+      sleep 0.3
+      feedkeys c
     end
+
+
+    def vim.feedkeys_input( input )
+      input.chars.to_a.each { |c| user_feedkeys c }
+    end
+
 
     def vim.current_line
       echo "getline('.')"
     end
+
 
     def vim.buffer_content
       echo(%<join(getbufline('%', 1, '$'), "\n")>)

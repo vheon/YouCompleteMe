@@ -1,6 +1,6 @@
 module Support
   module Vim
-    def set_buffer_contents(string)
+    def set_buffer_contents(filename, string)
       write_file(filename, string)
       vim.edit(filename)
     end
