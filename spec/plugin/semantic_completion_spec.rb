@@ -12,15 +12,15 @@ describe "semantic completion" do
       f = Foo()
       EOF
       vim.search 'Foo()'
-      vim.normal 'o'
+      vim.user_normal 'o'
 
       # Trigger the semantic completion; we have to use feedkeys_input because we
       # need a little delay between typed characters
-      vim.feedkeys_input 'f.w'
+      vim.user_strokes 'f.w'
       # Chose the candidate
-      vim.user_feedkeys '\<Tab>'
+      vim.user_stroke '\<Tab>'
       # Continue typing the end of the line
-      vim.feedkeys_input ' = 5'
+      vim.user_strokes ' = 5'
 
       expect(vim.current_line).to include("f.two = 5")
     end

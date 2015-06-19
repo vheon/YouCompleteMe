@@ -21,17 +21,23 @@ Vimrunner::RSpec.configure do |config|
     end
 
 
-    def vim.user_feedkeys( c )
-      # we sleep before typing a character to simulate a user actually
-      # typing; this way we let vim process our input and behave similarly to
-      # when we actually use vim
-      sleep 0.3
-      feedkeys c
+    def vim.user_normal( cmd )
+      normal cmd
+      sleep 0.5
     end
 
 
-    def vim.feedkeys_input( input )
-      input.chars.to_a.each { |c| user_feedkeys c }
+    def vim.user_stroke( c )
+      feedkeys c
+      # we sleep after typing a character to simulate a user actually
+      # typing; this way we let vim process our input and behave similarly to
+      # when we actually use vim
+      sleep 0.5
+    end
+
+
+    def vim.user_strokes( input )
+      input.chars.to_a.each { |c| user_stroke c }
     end
 
 
