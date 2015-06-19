@@ -1,6 +1,8 @@
 require 'vimrunner'
 require 'vimrunner/rspec'
+require_relative 'support/vim'
 
+PLUGIN_PATH = File.expand_path( '../..', __FILE__ )
 
 Vimrunner::RSpec.configure do |config|
   config.start_vim do
@@ -10,13 +12,17 @@ Vimrunner::RSpec.configure do |config|
     # the plugin directories are already loaded and the VimEnter event is
     # already fired
     plugin_path = File.expand_path( '../..', __FILE__ )
-    vim.add_plugin( plugin_path, 'plugin/youcompleteme.vim' )
+    vim.add_plugin( PLUGIN_PATH, 'plugin/youcompleteme.vim' )
     vim.command( 'call youcompleteme#Enable()' )
 
     def vim.edit_fixture( name )
-      edit( File.join( __dir__, 'fixtures', name ) )
+      edit( File.join( PLUGIN_PATH, 'spec', 'fixtures', name ) )
     end
 
     vim
   end
+end
+
+RSpec.configure do |config|
+  config.include Support::Vim
 end

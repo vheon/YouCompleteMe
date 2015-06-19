@@ -23,3 +23,6 @@ PLATFORMS
 DEPENDENCIES
   rspec
   vimrunner
+
+BUNDLED WITH
+   1.10.4
