@@ -5,6 +5,10 @@ os:
 sudo: false
 before_install:
   - git submodule update --init --recursive
+  # This is needed for vim-spec.
+  # For a ruby project this is done automatically but since we are using
+  # python as a language for travis we do this by hand.
+  - bundle install --jobs=3 --retry=3
 install:
   # source because it sets up env vars on some platforms
   - source travis/travis_install.sh

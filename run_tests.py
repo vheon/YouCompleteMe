@@ -57,11 +57,19 @@ def NoseTests():
   ] )
 
 
+def VimSpec():
+  subprocess.check_call( [
+    'rake',
+    'ci'
+  ] )
+
+
 def Main():
   parsed_args = ParseArguments()
   RunFlake8()
   BuildYcmdLibs( parsed_args )
   NoseTests()
+  VimSpec()
 
 if __name__ == "__main__":
   Main()
