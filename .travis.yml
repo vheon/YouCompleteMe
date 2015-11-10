@@ -12,7 +12,12 @@ before_install:
 install:
   # source because it sets up env vars on some platforms
   - source travis/travis_install.sh
-script: ./run_tests.py
+# script: ./run_tests.py
+script:
+  - which vim
+  - echo $PATH
+  - vim --version
+  - ls ${HOME}/vim/bin
 env:
   matrix:
     - YCMD_PYTHON_VERSION=2.7
@@ -22,7 +27,7 @@ addons:
     sources:
      - deadsnakes
     packages:
-     - vim-gtk
+     - vim
      - python2.6
      - python2.6-dev
      - python2.7
@@ -31,3 +36,5 @@ addons:
 cache:
   directories:
     - $HOME/.cache/pip
+notifications:
+  email: false
