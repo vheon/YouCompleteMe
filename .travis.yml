@@ -1,7 +1,7 @@
 language: generic
 os:
   - linux
-  - osx
+  # - osx
 sudo: false
 before_install:
   - git submodule update --init --recursive
@@ -13,11 +13,9 @@ install:
   # source because it sets up env vars on some platforms
   - source travis/travis_install.sh
   - bash install-vim.sh
+  - PATH=${HOME}/vim/bin:$PATH
 # script: ./run_tests.py
 script:
-  - PATH=${HOME}/vim/bin:$PATH
-  - which -a vim
-  - vim --version
   - ./run_tests.py
 env:
   matrix:
