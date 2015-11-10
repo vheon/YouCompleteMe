@@ -22,6 +22,7 @@ addons:
     sources:
      - deadsnakes
     packages:
+     - vim
      - python2.6
      - python2.6-dev
      - python2.7
