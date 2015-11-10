@@ -14,7 +14,7 @@ install:
   - source travis/travis_install.sh
 # script: ./run_tests.py
 script:
-  - which vim
+  - which -a vim
   - echo $PATH
   - vim --version
   - ls ${HOME}/vim/bin
