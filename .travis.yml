@@ -1,18 +1,27 @@
 language: generic
+sudo: false
 os:
   - linux
   - osx
-sudo: false
+env:
+  - YCMD_PYTHON_VERSION=2.7
+  - YCMD_PYTHON_VERSION=2.6
+matrix:
+  include:
+    - os: linux
+      env:
+        - VIMSCRIPT=true
+        - YCMD_PYTHON_VERSION=2.7
+    - os: osx
+      env:
+        - VIMSCRIPT=true
+        - YCMD_PYTHON_VERSION=2.7
 before_install:
   - git submodule update --init --recursive
 install:
   # source because it sets up env vars on some platforms
   - source travis/travis_install.sh
 script: ./run_tests.py
-env:
-  matrix:
-    - YCMD_PYTHON_VERSION=2.7
-    - YCMD_PYTHON_VERSION=2.6
 addons:
   apt:
     sources:

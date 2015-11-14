@@ -1,0 +1,12 @@
+Execute(set omnifunc as soon as we enter insert mode):
+  edit python/ycm/base.py
+  normal! i
+  AssertEqual 'youcompleteme#OmniComplete', &omnifunc
+
+
+Execute(even after re-editing we still have the omnifunc set bug#1769):
+  edit python/ycm/base.py
+  AssertEqual 'youcompleteme#OmniComplete', &omnifunc
+  normal! i\<Esc>
+  e!
+  AssertEqual 'youcompleteme#OmniComplete', &omnifunc

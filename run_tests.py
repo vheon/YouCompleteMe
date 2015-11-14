@@ -57,11 +57,23 @@ def NoseTests():
   ] )
 
 
+def VaderTests():
+  subprocess.check_call( [
+    'vim',
+    '-u', p.join( DIR_OF_THIS_SCRIPT, 'test', 'minivimrc' ),
+    '-c', 'Vader! test/test.vader'
+  ] )
+
+
 def Main():
   parsed_args = ParseArguments()
-  RunFlake8()
-  BuildYcmdLibs( parsed_args )
-  NoseTests()
+  if not os.environ.get( 'VIMSCRIPT' ):
+    RunFlake8()
+    BuildYcmdLibs( parsed_args )
+    NoseTests()
+  else:
+    BuildYcmdLibs( parsed_args )
+    VaderTests()
 
 if __name__ == "__main__":
   Main()
