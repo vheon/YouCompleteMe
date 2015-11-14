@@ -30,6 +30,21 @@ test ${python_version} == ${YCMD_PYTHON_VERSION}
 pip install -U pip wheel setuptools
 pip install -r python/test_requirements.txt
 
+if [[ ${VIMSCRIPT} ]]; then
+  # build vim from source since the one that is installed is not recent enough
+  git clone --depth 1 --single-branch https://github.com/vim/vim /tmp/vim
+  pushd /tmp/vim
+  ./configure --prefix="/tmp/vim/build" --with-features=huge \
+    --enable-pythoninterp --enable-fail-if-missing
+  make -j2
+  make install
+  export PATH=/tmp/vim/build/bin:$PATH
+  popd
+
+  # install the vimscript testing framework
+  git clone --depth 1 https://github.com/junegunn/vader.vim test/vader.vim
+fi
+
 # The build infrastructure prints a lot of spam after this script runs, so make
 # sure to disable printing, and failing on non-zero exit code after this script
 # finishes

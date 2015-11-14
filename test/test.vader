@@ -1,0 +1,4 @@
+Execute(initialize test environment):
+  call youcompleteme#Enable()
+
+Include: defer_set_omnifunc.vader

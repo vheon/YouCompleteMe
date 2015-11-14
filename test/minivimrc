@@ -1,0 +1,3 @@
+set rtp+=$TRAVIS_BUILD_DIR/test/vader.vim
+set rtp+=$TRAVIS_BUILD_DIR
+filetype plugin on
