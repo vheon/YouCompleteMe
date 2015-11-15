@@ -1,0 +1,12 @@
+Before:
+  let g:ycm_disable_for_files_larger_than_kb = 5
+
+
+Execute(works fine when the file is smaller than g:ycm_disable_for_files_larger_than_kb):
+  edit python/ycm/client/completion_request.py
+  AssertEqual 0, exists( 'b:ycm_largefile' )
+
+
+Execute(disable YCM when the file is larger than g:ycm_disable_for_files_larger_than_kb):
+  edit python/ycm/client/base_request.py
+  AssertEqual 1, b:ycm_largefile
